@@ -39,39 +39,82 @@ int main()
 	printf("%x\n",z);
 	} */
 
-	/*
-	x = 0x12345678 = 			0001 0010 0011 0100 0101 0110 0111 1000; (12345678)
-	xnew = 0x56341278 =			0101 0110 0011 0100 0001 0010 0111 1000; (5634)
-
-	0xFF =			   			0000 0000 0000 0000 0000 0000 1111 1111; (255)
-	0xFF00 =			   		0000 0000 0000 0000 1111 1111 0000 0000; (255)
 	
-	nmask = x & OxFF =			0000 0000 0000 0000 0000 0000 0111 1000; (78)
-	nmask = x & OxFF00 =		0000 0000 0000 0000 0101 0110 0000 0000; (5600)
-	nmask = x & OxFF00 >> 8		0000 0000 0000 0000 0000 0000 0101 0110; (56)
-	x &= 0xFFFF00FF = 			0000 0000 0000 0000 0000 0000 0111 1000; (12345600)
+	int x, n, m;
+	int nMask, mMask;
+	x = 0xDEADBEEF;
+	n = 0;
+	m = 2;
 
-	x							0000 0000 0011 0100 0000 0000 0111 1000; (12345678)				
-	nmask<<= 8*m				0101 0110 0000 0000 0000 0000 0000 0000; (56000000)
-	mmask<<= 8*n				0000 0000 0000 0000 0001 0010 0000 0000; (1200)
-	x | nmask | mmask =			0101 0110 0011 0100 0001 0010 0111 1000; (56341278)
+	/* create masks for the bytes being swapped*/
+	switch(n){
+		
+		case 0: 
+		nMask = x & 0xFF; /* mask first for two bytes */
+		printf("nMask = %x\n", nMask);
+		x &= 0xFFFFFF00; /* update x with mask */
+		printf("x = %x\n\n", x);
+		break;
 
+		case 1:
+		
+		nMask = (x & 0xFF00)>>8; /* masks values on 3,4th bytes, then shifts to isolate */
+		printf("nMask = %x\n", nMask);
+		x &= 0xFFFF00FF; /* update x with mask */ 
+		printf("x = %x\n\n", x);
+		break;
 
-	*/
+		case 2:
+		nMask = (x & 0xFF0000)>>16; /*masks values for 5,6th bytes, then shifts to isolate */
+		printf("nMask = %x\n", nMask);
+		x &= 0xFF00FFFF; /* update x with mask */ 
+		printf("x = %x\n\n", x);
+		break;
 
+		default:
+		nMask = (x & 0xFF000000)>>24; /* masks values for 7,8th byes, then shifts to isolate */
+		printf("nMask = %x\n", nMask);
+		x &= 0x00FFFFFF;
+		printf("x = %x\n\n", x);
+		break;
+	}
 
-	int a = 0x8; 		/* 1000 */
-	int b = 0x1; 		/* 0001 */	
-	int c = 0x2;		/* 0010 */
+	switch(m){
+		
+		case 0: 
+		mMask = x & 0xFF; /* mask first for two bytes */
+		printf("mMask = %x\n", mMask);
+		x &= 0xFFFFFF00; /* update x with mask */
+		break;
 
-	int d = a | b | c; 	/* 1011*/
+		case 1:
+		mMask = (x & 0xFF00)>>8; /* masks values on 3,4th bytes, then shifts to isolate */
+		printf("mMask = %x\n", mMask);
+		x &= 0xFFFF00FF; /* update x with mask */
+		break;
+
+		case 2:
+		mMask = (x & 0xFF0000)>>16; /*masks values for 5,6th bytes, then shifts to isolate */
+		printf("mMask = %x\n", mMask);
+		x &= 0xFF00FFFF; /* update x with mask */
+		break;
+
+		default:
+		mMask = (x & 0xFF000000)>>24; /* masks values for 7,8th bytes, then shifts to isolate */
+		printf("mMask = %x\n", mMask);
+		x &= 0x00FFFFFF;
+		printf("x = %x\n\n", x);
+		break;
+	}
+
+	nMask <<= m<<3;
+	printf("nMask = %x\n", nMask);
+	mMask <<=n<<3;
+	printf("mMask = %x\n", mMask);
+	int z = x | nMask | mMask;
 	
-	printf("%x\n", d);
 
-	 
-	
+	printf("z = %x\n", z);
 
-
-    
 	return 0;
 }

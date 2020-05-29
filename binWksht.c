@@ -1,4 +1,4 @@
-/* Page to test/work binary operations manualy */
+/* Page to test/work binary operations manually */
 
 
 
