@@ -39,46 +39,48 @@ int main()
 	printf("%x\n",z);
 	} */
 
-	
+
+
+	/*
 	int x, n, m;
 	int mask, mask8, mask16, mask24, maska, maska2, nMask, mMask;
 	mask = 0xFF;
-	mask8 = mask<<8; /* FF00 */
-	mask16 = mask<<16; /* FF0000 */
-	mask24 = mask<<24; /* FF000000 */
+	mask8 = mask<<8;
+	mask16 = mask<<16;  
+	mask24 = mask<<24;  
 	maska = mask | mask8;
 	maska2 = maska | maska<<16;
-	printf("maska: %x\n",maska);/* FFFF */
-	printf("maska2: %x\n",maska2);/* FFFFFFFF */
+	printf("maska: %x\n",maska); 
+	printf("maska2: %x\n",maska2);/ 
 	x = 0x12345678;
 	n = 1;
 	m = 3;
 
-	/* create masks for the bytes being swapped*/
+	 
 	switch(n){
 		case 0: 
-		nMask = x & 0xFF; /* mask first for two bytes */
+		nMask = x & 0xFF; 
 		printf("nMask = %x\n", nMask);
-		x &= 0xFFFFFF00; /* update x with mask */
+		x &= 0xFFFFFF00; 
 		printf("x = %x\n\n", x);
 		break;
 
 		case 1:
-		nMask = (x & mask8)>>8; /* masks values of 3,4th bytes, then shifts to isolate */
+		nMask = (x & mask8)>>8; 
 		printf("nMask = %x\n", nMask);
-		x &= 0xFFFF00FF; /* update x with mask */ 
+		x &= 0xFFFF00FF; 
 		printf("x = %x\n\n", x);
 		break;
 
 		case 2:
-		nMask = (x & mask16)>>16; /*masks values of 5,6th bytes, then shifts to isolate */
+		nMask = (x & mask16)>>16; 
 		printf("nMask = %x\n", nMask);
-		x &= 0xFF00FFFF; /* update x with mask */ 
+		x &= 0xFF00FFFF; 
 		printf("x = %x\n\n", x);
 		break;
 
 		default:
-		nMask = (x & mask24)>>24; /* masks values of 7,8th bytes, then shifts to isolate */
+		nMask = (x & mask24)>>24; 
 		printf("nMask = %x\n", nMask);
 		x &= 0x00FFFFFF;
 		printf("x = %x\n\n", x);
@@ -87,25 +89,25 @@ int main()
 
 	switch(m){
 		case 0: 
-		mMask = x & 0xFF; /* mask first for two bytes */
+		mMask = x & 0xFF; 
 		printf("mMask = %x\n", mMask);
-		x &= 0xFFFFFF00; /* update x with mask */
+		x &= 0xFFFFFF00; 
 		break;
 
 		case 1:
-		mMask = (x & mask8)>>8; /* masks values of 3,4th bytes, then shifts to isolate */
+		mMask = (x & mask8)>>8; 
 		printf("mMask = %x\n", mMask);
-		x &= 0xFFFF00FF; /* update x with mask */
+		x &= 0xFFFF00FF; 
 		break;
 
 		case 2:
-		mMask = (x & mask16)>>16; /*masks values of 5,6th bytes, then shifts to isolate */
+		mMask = (x & mask16)>>16; 
 		printf("mMask = %x\n", mMask);
-		x &= 0xFF00FFFF; /* update x with mask */
+		x &= 0xFF00FFFF; 
 		break;
 
 		default:
-		mMask = (x & mask24)>>24; /* masks values of 7,8th bytes, then shifts to isolate */
+		mMask = (x & mask24)>>24; 
 		printf("mMask = %x\n", mMask);
 		x &= 0x00FFFFFF;
 		printf("x = %x\n\n", x);
@@ -119,6 +121,47 @@ int main()
 	int z = x | nMask | mMask;
 	
 	printf("z = %x\n", z);
+*/
+
+	int x,n,m,nMask, mMask, combMask, maskedWrd, swapN, swapM, swapT, isolateN, isolateM;;
+	
+	x = 0x7fffffff;
+	n = 0;
+	m = 0;
+
+	printf("x= %x\n", x);
+
+	nMask = 0xFF<<(n<<3);
+	printf("nMask= %x\n", nMask);
+	isolateN = (x & nMask)>>(n<<3);
+	printf("isolateN= %x\n", isolateN);
+
+	mMask = 0xFF<<(m<<3);
+	printf("mMask= %x\n", mMask);
+	isolateM = (x & mMask)>>(m<<3);
+	printf("isolateM= %x\n", isolateM);
+
+	combMask = ~(nMask | mMask);
+	printf("combMask= %x\n", combMask);
+
+	maskedWrd = x&combMask;
+	swapN = maskedWrd | isolateN <<(m<<3);
+	swapM = swapN | isolateM <<(n<<3);
+	swapT = ~swapM+1;
+
+	switch (x)
+	{
+	case 0:
+		/* code */
+		break;
+	
+	default:
+		break;
+	}
+	
+
+	printf("maskedWrd= %x\n", maskedWrd);
+	printf("swapM= %x\n", swapT);
 
 	return 0;
 }
