@@ -123,6 +123,7 @@ int main()
 	printf("z = %x\n", z);
 */
 
+/*
 	int x,n,m,nMask, mMask, combMask, maskedWrd, swapN, swapM, swapT, isolateN, isolateM;;
 	
 	x = 0x7fffffff;
@@ -149,19 +150,17 @@ int main()
 	swapM = swapN | isolateM <<(n<<3);
 	swapT = ~swapM+1;
 
-	switch (x)
-	{
-	case 0:
-		/* code */
-		break;
-	
-	default:
-		break;
-	}
-	
-
 	printf("maskedWrd= %x\n", maskedWrd);
-	printf("swapM= %x\n", swapT);
+	printf("swapM= %x\n", swapT); 
+	*/
+
+	int x, y;
+	x = 80000000;
+	y = 80000000;
+	int z = !(!(x ^ y));
+	printf("z= %x\n", z);
+
+
 
 	return 0;
 }
