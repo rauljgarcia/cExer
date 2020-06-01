@@ -123,11 +123,11 @@ int main()
 	printf("z = %x\n", z);
 */
 
-/*
-	int x,n,m,nMask, mMask, combMask, maskedWrd, swapN, swapM, swapT, isolateN, isolateM;;
+
+	int x,n,m,nMask, mMask, combMask, maskedWrd, swapN, swapM, swapT, isolateN, isolateM, isolateMM, isolateNN;
 	
-	x = 0x7fffffff;
-	n = 0;
+	x = 0x80000000;
+	n = 3;
 	m = 0;
 
 	printf("x= %x\n", x);
@@ -135,31 +135,43 @@ int main()
 	nMask = 0xFF<<(n<<3);
 	printf("nMask= %x\n", nMask);
 	isolateN = (x & nMask)>>(n<<3);
+	isolateNN = isolateN & 0xFF;
 	printf("isolateN= %x\n", isolateN);
 
 	mMask = 0xFF<<(m<<3);
 	printf("mMask= %x\n", mMask);
 	isolateM = (x & mMask)>>(m<<3);
+	isolateMM = isolateM & 0xFF;
 	printf("isolateM= %x\n", isolateM);
+	printf("isolateMM= %x\n", isolateMM);
 
 	combMask = ~(nMask | mMask);
 	printf("combMask= %x\n", combMask);
 
 	maskedWrd = x&combMask;
-	swapN = maskedWrd | isolateN <<(m<<3);
-	swapM = swapN | isolateM <<(n<<3);
-	swapT = ~swapM+1;
-
 	printf("maskedWrd= %x\n", maskedWrd);
-	printf("swapM= %x\n", swapT); 
+
+	swapN = maskedWrd | isolateNN <<(m<<3);
+	swapM = swapN | isolateMM <<(n<<3);
+	swapT = swapM;
+
+	
+	printf("swapT= %x\n", swapT); 
+	
+
+	/*
+	int x, x2, y2, y;
+	x = 0x80000000;
+	x ^= 0x0FFFFFFF;
+	x2 = x>>30;
+	y = 0xb1e1dbbb;
+	int z = x + y;
+	printf("x= %x\n", x);
 	*/
-
-	int x, y;
-	x = 80000000;
-	y = 80000000;
-	int z = !(!(x ^ y));
-	printf("z= %x\n", z);
-
+	
+	
+	
+	
 
 
 	return 0;
