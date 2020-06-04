@@ -5,30 +5,32 @@ int main()
 	/*increasing bit vector size from 8 to 16-bit using left shift
 	int a = 0xaa;
 	int b = a<<8;
+	printf("b= %x\n", b);
 	*/
 
 
 	/* returning 16 bit word from 8, all even-numbered bits are set to 1 
 	int a = 0x55;
+	printf("a= %x\n", a);
 	int b = a<<8;
+	printf("b= %x\n", b);
 	int c = b | a;
+	printf("c= %x\n", c);
 	int d = c<<16;
+	printf("d= %x\n", d);
 	int e = d | c;
+	printf("e= %x\n", e);
 	*/
+
+	/*
+    int a = 0x1;
+    int b = ~a + 1;
+    printf("b = %x\n", b)
+  	return b;
+	  */
 	
-	/* check if any odd-numbered bits in a 32 bit word are set to 1
-	int anyOddBit(int x){
-	int a = 0xaa;
-	int	b = a<<8;
-	int c = b | a;
-	int d = c << 16;
-	int e = d | c;
-
-	int z = !(!(x & e));
-	} */
-
 	/* check if all even-numbered bits set to 1
-	int allEvenbits(x)
+	int x = 0xFFFFFFFE;
 	int a = 0x55;
 	int	b = a<<8;
 	int c = b | a;
@@ -37,7 +39,22 @@ int main()
 
 	int z = !(~x & e);
 	printf("%x\n",z);
-	} */
+	*/
+
+
+	/* check if any odd-numbered bits in a 32 bit word are set to 1 
+	int x = 0x5;
+	int a = 0xaa;
+	int	b = a<<8;
+	int c = b | a;
+	int d = c << 16;
+	int e = d | c;
+
+	int z = !(!(x & e));
+	printf("e=%x \n", e );
+	} 
+*/
+
 
 
 
@@ -123,7 +140,7 @@ int main()
 	printf("z = %x\n", z);
 */
 
-
+/*
 	int x,n,m,nMask, mMask, combMask, maskedWrd, swapN, swapM, swapT, isolateN, isolateM, isolateMM, isolateNN;
 	
 	x = 0x80000000;
@@ -157,18 +174,44 @@ int main()
 
 	
 	printf("swapT= %x\n", swapT); 
+	*/
+
+/*
+	int x, y, z, z1, varMask, varSbit,sum, sumSbit, totSbit, varSbitx, varSbity, totSbit2;
+	x =     0x80000000;
+	y = 	0x7fffffff;
+	z = 0x80;
+	z1 = z<<24;
+	
+	// varSbit = !(!((x & z) & (z1)));
+	varSbitx = !(!(x & z1));
+	
+	varSbity = !(!(y & z1));
+	varSbit = !(!((varSbitx & varSbity)));
+
+	sum = x+y;
+
+	sumSbit = !(!(z1 & sum));
+	totSbit = !(!(varSbit & sumSbit));
+
+	printf("varSbitx = %x\n", varSbitx);
+	printf("varSbity = %x\n", varSbity);
+	printf("varSbit = %x\n", varSbit);
+	printf("sumXZ = %x\n", sum);
+	printf("sumSbit = %x\n", sumSbit);
+	printf("totSbit = %x\n", totSbit);
 	
 
-	/*
-	int x, x2, y2, y;
-	x = 0x80000000;
-	x ^= 0x0FFFFFFF;
-	x2 = x>>30;
-	y = 0xb1e1dbbb;
-	int z = x + y;
-	printf("x= %x\n", x);
-	*/
-	
+	int x, y, z, a;
+	x = 2;
+	y = 4;
+	z = 5;
+
+	a = (x ? y : z);
+
+	printf("a = %d\n", a);
+
+*/	
 	
 	
 	
